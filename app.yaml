@@ -17,8 +17,5 @@ handlers:
 - url: /javascript
   static_dir: javascript
 
-- url: /pages
-  static_dir: pages
-
 - url: /.*
-  static_dir: pages/main.html
+  script: catchall.py
