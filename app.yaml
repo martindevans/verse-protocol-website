@@ -19,3 +19,6 @@ handlers:
 
 - url: /pages
   static_dir: pages
+
+- url: /.*
+  static_dir: pages/main.html
