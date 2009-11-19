@@ -17,12 +17,10 @@ a
 	top: 0px;
 	width: 973px; /* 1024 - 0.05 * 1024 */
 	height: 100%;
-	background-color: white;
 }
 
 .innerbanner
 {
-	background-color: blue;
 	position: absolute;
 	top: 0;
 	width: 100%;
@@ -35,7 +33,6 @@ a
 	top: 150px;
 	margin-left: 0%;
 	width: 100%;
-	background-color: red;
 }
 
 #leftcolumn
@@ -43,15 +40,29 @@ a
 	float: left;
 	left: 0;
 	top: 0;
-	width: 200px;
-	background-color: yellow;
+	width: 180px;
+	background-color: white;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+}
+
+.leftoption
+{
+	background-color: red;
+	margin-bottom: 3px;
+	width: 165px;
+	padding: 0px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 15px;
 }
 
 #centrecolumn
 {
 	float: left;
 	width: 497px;
-	background-color: green;
+	background-color: white;
 }
 
 #rightcolumn
@@ -74,4 +85,5 @@ a
 	font-family: "Courier New";
 	font-size: 50px;
 	font-weight: bold;
+	color: white;
 }
