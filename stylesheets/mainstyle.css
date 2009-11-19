@@ -49,12 +49,37 @@ a
 
 .leftoption
 {
-	background-color: red;
 	margin-bottom: 3px;
-	width: 165px;
+	width: 180px;
 	padding: 0px;
-	padding-top: 5px;
-	padding-bottom: 5px;
+}
+
+.leftoptiontop
+{
+	background-image:url('../../images/leftmenutop.png');
+	float: top;
+	height: 5px;
+}
+
+.leftoptionbottom
+{
+	background-image:url('../../images/leftmenubottom.png');
+	float: bottom;
+	height: 5px;
+}
+
+.leftoptioninner
+{
+	background-color: #595959;
+}
+
+.leftoptioninner:hover
+{
+	background-color: #999999;
+}
+
+.leftoptiontext
+{
 	padding-left: 15px;
 }
 
