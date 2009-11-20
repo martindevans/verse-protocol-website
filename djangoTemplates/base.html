@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Verse-Protocol</title>
+		<link rel="stylesheet" type="text/css" href="../../stylesheets/mainstyle.css" />
+	</head>
+	<body>
+		<div class="page">
+			<div class="innerbanner">
+				<div id="bigtitle">	
+					Verse-Protocol
+				</div>
+				<div id="littletitle">	
+					{% block title %}{% endblock %}
+				</div>
+			</div>
+			<div class="innerpage">
+				<div class="column" id="leftcolumn">
+					<div class="leftoption">
+						<div class="leftoptiontop"></div>
+						<div class="leftoptioninner">
+							<div class="leftoptiontext">Home</div>
+						</div>
+						<div class="leftoptionbottom"></div>
+					</div>
+					<div class="leftoption">
+						<div class="leftoptiontop"></div>
+						<div class="leftoptioninner">
+							<div class="leftoptiontext">Discussion forum</div>
+						</div>
+						<div class="leftoptionbottom"></div>
+					</div>
+					<div class="leftoption">
+						<div class="leftoptiontop"></div>
+						<div class="leftoptioninner">
+							<div class="leftoptiontext">What is Verse?</div>
+						</div>
+						<div class="leftoptionbottom"></div>
+					</div>
+					<div class="leftoption">
+						<div class="leftoptiontop"></div>
+						<div class="leftoptioninner">
+							<div class="leftoptiontext">Projects</div>
+						</div>
+						<div class="leftoptionbottom"></div>
+					</div>
+					<div class="leftoption">
+						<div class="leftoptiontop"></div>
+						<div class="leftoptioninner">
+							<div class="leftoptiontext">Documentation</div>
+						</div>
+						<div class="leftoptionbottom"></div>
+					</div>
+					<div class="leftoption">
+						<div class="leftoptiontop"></div>
+						<div class="leftoptioninner">
+							<div class="leftoptiontext">Sites</div>
+						</div>
+						<div class="leftoptionbottom"></div>
+					</div>
+					<div class="leftoption">
+						<div class="leftoptiontop"></div>
+						<div class="leftoptioninner">
+							<a href="{{ accounthref }}">
+								<div class="leftoptiontext">{{ accountstring }}</div>
+							</a>
+						</div>
+						<div class="leftoptionbottom"></div>
+					</div>
+				</div>
+				<div class="column" id="centrecolumn">
+					{% block content %}{% endblock %}
+				</div>
+				<div class="column" id="rightcolumn">
+					{% block rightbar %}
+						<script type="text/javascript" src="http://www.google.com/friendconnect/script/friendconnect.js"></script>
+						<div id="div-2870153879432025062" style="width:274px;border:1px solid #cccccc;"></div>
+						<script type="text/javascript">
+							var skin = {};
+							skin['FONT_FAMILY'] = 'monospace';
+							skin['BORDER_COLOR'] = '#cccccc';
+							skin['ENDCAP_BG_COLOR'] = '#e0ecff';
+							skin['ENDCAP_TEXT_COLOR'] = '#333333';
+							skin['ENDCAP_LINK_COLOR'] = '#0000cc';
+							skin['ALTERNATE_BG_COLOR'] = '#ffffff';
+							skin['CONTENT_BG_COLOR'] = '#ffffff';
+							skin['CONTENT_LINK_COLOR'] = '#0000cc';
+							skin['CONTENT_TEXT_COLOR'] = '#333333';
+							skin['CONTENT_SECONDARY_LINK_COLOR'] = '#7777cc';
+							skin['CONTENT_SECONDARY_TEXT_COLOR'] = '#666666';
+							skin['CONTENT_HEADLINE_COLOR'] = '#333333';
+							skin['NUMBER_ROWS'] = '1';
+							google.friendconnect.container.setParentUrl('/' /* location of rpc_relay.html and canvas.html */);
+							google.friendconnect.container.renderMembersGadget(
+							 { id: 'div-2870153879432025062',
+							   site: '02109306905329332329' },
+							  skin);
+						</script>
+
+						<script type="text/javascript" src="http://www.google.com/friendconnect/script/friendconnect.js"></script>
+						<div id="div-6997979553123051592" style="width:274px;border:1px solid #cccccc;"></div>
+						<script type="text/javascript">
+						var skin = {};
+						skin['BORDER_COLOR'] = '#cccccc';
+						skin['ENDCAP_BG_COLOR'] = '#e0ecff';
+						skin['ENDCAP_TEXT_COLOR'] = '#333333';
+						skin['ENDCAP_LINK_COLOR'] = '#0000cc';
+						skin['ALTERNATE_BG_COLOR'] = '#ffffff';
+						skin['CONTENT_BG_COLOR'] = '#ffffff';
+						skin['CONTENT_LINK_COLOR'] = '#0000cc';
+						skin['CONTENT_TEXT_COLOR'] = '#333333';
+						skin['CONTENT_SECONDARY_LINK_COLOR'] = '#7777cc';
+						skin['CONTENT_SECONDARY_TEXT_COLOR'] = '#666666';
+						skin['CONTENT_HEADLINE_COLOR'] = '#333333';
+						google.friendconnect.container.setParentUrl('/' /* location of rpc_relay.html and canvas.html */);
+						google.friendconnect.container.renderOpenSocialGadget(
+						 { id: 'div-6997979553123051592',
+						   url:'http://xmlgadgets.com/ig/top10.xml',
+						   site: '02109306905329332329' },
+						  skin);
+						</script>
+					{% endblock %}
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

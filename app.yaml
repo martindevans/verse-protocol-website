@@ -18,4 +18,4 @@ handlers:
   static_dir: javascript
 
 - url: /.*
-  script: catchall.py
+  script: main.py

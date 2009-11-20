@@ -8,6 +8,7 @@ a
 {
 	font-weight: bold;
 	color: black;
+	text-decoration: none;
 }
 
 .page
@@ -33,6 +34,7 @@ a
 	top: 150px;
 	margin-left: 0%;
 	width: 100%;
+	background-color: white;
 }
 
 #leftcolumn
@@ -71,6 +73,8 @@ a
 .leftoptioninner
 {
 	background-color: #595959;
+	padding-top: 0.1em;
+	padding-bottom: 0.1em;
 }
 
 .leftoptioninner:hover
@@ -86,8 +90,12 @@ a
 #centrecolumn
 {
 	float: left;
-	width: 497px;
+	width: 477px;
 	background-color: white;
+	padding-top: 1em;
+	padding-bottom: 1em;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 #rightcolumn
@@ -109,6 +117,17 @@ a
 	margin-left: 0.3em;
 	font-family: "Courier New";
 	font-size: 50px;
+	font-weight: bold;
+	color: white;
+}
+
+#littletitle
+{
+	position: absolute;
+	top: 1.5em;
+	margin-left: 0.3em;
+	font-family: "Courier New";
+	font-size: 40px;
 	font-weight: bold;
 	color: white;
 }
