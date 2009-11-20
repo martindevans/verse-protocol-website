@@ -23,7 +23,7 @@ def get_count(name):
         total = 0
         for counter in GeneralCounterShard.all().filter('name = ', name):
             total += counter.count
-#        memcache.add(name, str(total), 60)
+        memcache.add(name, str(total), 60)
     return total
 
 def increment(name):
@@ -40,9 +40,12 @@ def increment(name):
         if counter is None:
             counter = GeneralCounterShard(key_name=shard_name, name=name)
         counter.count += 1
+        value = counter.count
         counter.put()
-    db.run_in_transaction(txn)
-#    memcache.incr(name)
+        return value
+    value = db.run_in_transaction(txn)
+    memcache.incr(name)
+    return value
 
 def decrement(name):
     """Increment the value for a given sharded counter.
@@ -58,6 +61,9 @@ def decrement(name):
         if counter is None:
             counter = GeneralCounterShard(key_name=shard_name, name=name)
         counter.count -= 1
+        value = counter.count
         counter.put()
-    db.run_in_transaction(txn)
-#    memcache.decr(name)
+        return value
+    value = db.run_in_transaction(txn)
+    memcache.decr(name)
+    return value
