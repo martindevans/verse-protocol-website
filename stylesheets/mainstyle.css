@@ -106,8 +106,19 @@ a
 
 .footer
 {
-	font-family: Monospace;
+	font-family: "Lucida Grande", Arial, sans-serif;
 	font-size: 10px;
+	width: 963px;
+	background-color: white;
+	clear: both;
+	padding-top: 10px;
+	padding-bottom: 30px;
+	padding-left: 10px;
+	position: relative;
+	top: 30px;
+	border-top-color: black;
+	border-top-style: solid;
+	border-top-width: 1px;
 }
 
 #bigtitle

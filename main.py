@@ -8,11 +8,43 @@ from google.appengine.ext import db
 from google.appengine.api import memcache
 from google.appengine.api import users
 
-class MainPage(webapp.RequestHandler):
-  def get(self):    
+class Page(webapp.RequestHandler):
+  def get(self):
+    valid_pages = {
+      "/": "/home.html",
+      "/what": "/whatisverse.html",
+      "/projects": "/verseprojects.html",
+      "/documentation": "/documentation.html",
+      "/sites": "/versesites.html"
+      }
+    try:
+      path = valid_pages[self.request.path]
+      template_values = {
+        }
+      path = os.path.join(os.path.dirname(__file__), 'djangoTemplates' + path)
+      self.response.out.write(RenderBaseExtender(path, template_values))
+    except KeyError:
+      self.error(404)
+
+class WhatIsVerse(webapp.RequestHandler):
+  def get(self):
     template_values = {
         }
-    path = os.path.join(os.path.dirname(__file__), 'djangoTemplates/home.html')
+    path = os.path.join(os.path.dirname(__file__), 'djangoTemplates/whatisverse.html')
+    self.response.out.write(RenderBaseExtender(path, template_values))
+
+class VerseProjects(webapp.RequestHandler):
+  def get(self):
+    template_values = {
+        }
+    path = os.path.join(os.path.dirname(__file__), 'djangoTemplates/verseprojects.html')
+    self.response.out.write(RenderBaseExtender(path, template_values))
+
+class VerseDocs(webapp.RequestHandler):
+  def get(self):
+    template_values = {
+        }
+    path = os.path.join(os.path.dirname(__file__), 'djangoTemplates/documentation.html')
     self.response.out.write(RenderBaseExtender(path, template_values))
 
 def RenderBaseExtender(path, template_values):
@@ -37,7 +69,7 @@ def GetBaseTemplateValues():
   return answer
 
 application = webapp.WSGIApplication(
-                                     [('/.*', MainPage)],
+                                     [('/.*', Page)],
                                      debug=True)
 
 def main():
