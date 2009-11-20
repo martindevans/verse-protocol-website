@@ -9,18 +9,6 @@ from google.appengine.api import memcache
 
 class MainPage(webapp.RequestHandler):
   def get(self):
-##    stats = memcache.get_stats()
-##    template_values = {
-##      'hits': stats['hits'],
-##      'misses': stats['misses'],
-##      'byte_hits': stats['byte_hits'],
-##      'items': stats['items'],
-##      'bytes': stats['bytes'],
-##      'oldest_item_age': stats['oldest_item_age']
-##      }
-##
-##    path = os.path.join(os.path.dirname(__file__), 'djangoTemplates/adminpanel.html')
-##    self.response.out.write(template.render(path, template_values))
     self.response.out.write("Admin panel")
 
 application = webapp.WSGIApplication(
