@@ -8,14 +8,17 @@ handlers:
   script: adminPanel.py
   login: admin
 
-- url: /stylesheets
-  static_dir: stylesheets
-
 - url: /images
   static_dir: images
 
 - url: /javascript
   static_dir: javascript
+
+- url: /messageboard
+  script: messageboard/handler.py
+
+- url: /stylesheets
+  static_dir: stylesheets
 
 - url: /.*
   script: main.py
