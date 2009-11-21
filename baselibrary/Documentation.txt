@@ -1,0 +1,4 @@
+This is a base library of a set of libraries constructed for Appengine by Martin Evans. The only requirement of using this library is a redirect in App.config:
+
+- url: /tasks/searchindexing
+  script: baselibrary/handler.py

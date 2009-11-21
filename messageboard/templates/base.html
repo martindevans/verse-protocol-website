@@ -3,7 +3,7 @@
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
-		<title>{{ pagetitle }}</title>
+		<title>{% block pagetitle %}{% endblock %}</title>
 		{% if forum_use_default_style %}
 			<link rel="stylesheet" type="text/css" href="/messageboard/files/forumstyle.css?text/css" />
 		{% else %}
@@ -32,8 +32,8 @@
 					<div class="rightoption">
 						<div class="rightoptiontop"></div>
 						<div class="rightoptioninner">
-							<a href="/">
-								<div class="rightoptiontext">Home</div>
+							<a href="/profile">
+								<div class="rightoptiontext">Profile</div>
 							</a>
 						</div>
 						<div class="rightoptionbottom"></div>
@@ -41,8 +41,8 @@
 					<div class="rightoption">
 						<div class="rightoptiontop"></div>
 						<div class="rightoptioninner">
-							<a href="/">
-								<div class="rightoptiontext">Home</div>
+							<a href="/messageboard/search">
+								<div class="rightoptiontext">Search</div>
 							</a>
 						</div>
 						<div class="rightoptionbottom"></div>
@@ -50,8 +50,8 @@
 					<div class="rightoption">
 						<div class="rightoptiontop"></div>
 						<div class="rightoptioninner">
-							<a href="/">
-								<div class="rightoptiontext">Home</div>
+							<a href="{{ accounthref }}">
+								<div class="rightoptiontext">{{ accountstring }}</div>
 							</a>
 						</div>
 						<div class="rightoptionbottom"></div>
@@ -60,7 +60,7 @@
 			</div>
 			<div class="innerpage">
 				<div>
-					
+					{% block content %}{% endblock %}
 				</div>
 				<div class="footer">
 					Page built and maintained by <a href="http://martindevans.appspot.com">Martin Evans</a> <a href="mailto:martindevans@gmail.com">(Email me)</a>

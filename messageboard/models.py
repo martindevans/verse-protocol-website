@@ -4,6 +4,7 @@ from google.appengine.api import users
 from usersystem import groups
 from usersystem import profiles
 from baselibrary import counter
+from baselibrary import search
 
 class section(db.Model):
     title = db.StringProperty()
@@ -29,13 +30,14 @@ class Thread(db.Model):
     def GetNextPosition(self):
         return counter.increment("ForumThreadPositionCounter" + self.title)
 
-class Post(db.Model):
+class Post(search.Searchable, db.Model):
     ParentThread = db.ReferenceProperty(Thread)
     user = db.UserProperty(auto_current_user_add=True)
     date = db.DateTimeProperty(auto_now_add=True)
     content = db.TextProperty()
     position = db.IntegerProperty()
     groups = db.ListProperty(db.Key)
+    INDEX_ONLY = ['content']  
 
     def MayView(self, profile):
         return ParentThread.MayView(profile)

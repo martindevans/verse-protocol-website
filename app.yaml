@@ -20,5 +20,8 @@ handlers:
 - url: /stylesheets
   static_dir: stylesheets
 
+- url: /tasks/searchindexing.*
+  script: baselibrary/handler.py
+  
 - url: /.*
   script: main.py

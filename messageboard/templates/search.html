@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}Search for "{{ searchphrase }}", {{resultcount }} result{{ resultcount|pluralize }}{% endblock %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+	<form name="searchform">
+		<input type="text" name="searchbox" value="{{ searchphrase }}"/>
+		<input type="submit" value="Submit" />
+	</form>
+	
+	<br />
+	Search for : {{ searchphrase }}<br />
+	{{resultcount }} result{{ resultcount|pluralize }}<br />
+	{% for r in results %}
+		{{ r }}<br />
+	{% endfor %}
+{% endblock %}
