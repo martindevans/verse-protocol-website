@@ -14,7 +14,7 @@ handlers:
 - url: /javascript
   static_dir: javascript
 
-- url: /messageboard
+- url: /messageboard.*
   script: messageboard/handler.py
 
 - url: /stylesheets

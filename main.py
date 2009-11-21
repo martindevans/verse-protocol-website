@@ -26,6 +26,7 @@ class Page(webapp.RequestHandler):
       self.response.out.write(RenderBaseExtender(path, template_values))
     except KeyError:
       self.error(404)
+      self.response.out.write("Oh noes, a 404 error!")
 
 def RenderBaseExtender(path, template_values):
   user = users.get_current_user()
@@ -36,17 +37,6 @@ def RenderBaseExtender(path, template_values):
     template_values["accounthref"] = users.create_login_url("/")
     template_values["accountstring"] = "Sign in"
   return template.render(path, template_values)
-
-def GetBaseTemplateValues():
-  user = users.get_current_user()
-  answer = {}
-  if user:
-    answer["accounthref"] = users.create_logout_url("/")
-    answer["accountstring"] = "Sign out"
-  else:
-    answer["accounthref"] = users.create_login_url("/")
-    answer["accountstring"] = "Sign in"
-  return answer
 
 application = webapp.WSGIApplication(
                                      [('/.*', Page)],

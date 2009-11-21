@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>{{ pagetitle }}</title>
+		{% if forum_use_default_style %}
+			<link rel="stylesheet" type="text/css" href="/messageboard/files/forumstyle.css?text/css" />
+		{% else %}
+			<link rel="stylesheet" type="text/css" href="{{ forum_stylepath }}" />
+		{% endif %}
+	</head>
+	<body>
+		<div class="page">
+			<div class="innerbanner">
+				<div id="bigtitle">	
+					{% block bigtitle %}Messageboard{% endblock %}
+				</div>
+				<div id="littletitle">	
+					{% block title %}{% endblock %}
+				</div>
+				<div class="column" id="headerright">
+					<div class="rightoption">
+						<div class="rightoptiontop"></div>
+						<div class="rightoptioninner">
+							<a href="/">
+								<div class="rightoptiontext">Home</div>
+							</a>
+						</div>
+						<div class="rightoptionbottom"></div>
+					</div>
+					<div class="rightoption">
+						<div class="rightoptiontop"></div>
+						<div class="rightoptioninner">
+							<a href="/">
+								<div class="rightoptiontext">Home</div>
+							</a>
+						</div>
+						<div class="rightoptionbottom"></div>
+					</div>
+					<div class="rightoption">
+						<div class="rightoptiontop"></div>
+						<div class="rightoptioninner">
+							<a href="/">
+								<div class="rightoptiontext">Home</div>
+							</a>
+						</div>
+						<div class="rightoptionbottom"></div>
+					</div>
+					<div class="rightoption">
+						<div class="rightoptiontop"></div>
+						<div class="rightoptioninner">
+							<a href="/">
+								<div class="rightoptiontext">Home</div>
+							</a>
+						</div>
+						<div class="rightoptionbottom"></div>
+					</div>
+				</div>
+			</div>
+			<div class="innerpage">
+				<div>
+					
+				</div>
+				<div class="footer">
+					Page built and maintained by <a href="http://martindevans.appspot.com">Martin Evans</a> <a href="mailto:martindevans@gmail.com">(Email me)</a>
+					<br />
+					<a href="/admin">Administrate Website</a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
