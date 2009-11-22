@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block style %}<link rel="stylesheet" type="text/css" href="/messageboard/files/sectionliststyle.css?text/css" />{% endblock %}
+
+{% block pagetitle %}{{ appname }}{% endblock %}
+
+{% block title %}{{ section.title }}{% endblock %}
+
+{% block content %}
+	{{ section.title }}
+{% endblock %}

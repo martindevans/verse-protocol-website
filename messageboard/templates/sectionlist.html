@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block style %}<link rel="stylesheet" type="text/css" href="/messageboard/files/sectionliststyle.css?text/css" />{% endblock %}
+
+{% block pagetitle %}{{ appname }}{% endblock %}
+
+{% block title %}{{ appname }}{% endblock %}
+
+{% block content %}
+	{% for s in sections %}
+		<a href="/messageboard/threadlist?&sectionkey={{ s.key }}">
+			<div class="sectionblock">
+				<div class="sectiontitle">{{ s.title }}</div>
+				<div class="sectiondescription">{{ s.description }}</div>
+				{% if users.is_current_user_admin %}
+					Admin Info: <br />
+					order = {{ s.position }}<br />
+					<form action="/messageboard" method="post">
+						<input type="hidden" name="type" value="delete"></input>
+						<input type="hidden" name="key" value="{{ s.key }}"></input>
+						<div><input type="submit" value="Delete"></div>
+					</form>
+				{% endif %}
+			</div>
+		</a>
+	{% endfor %}
+	<br />
+	{% if users.is_current_user_admin %}
+		<form action="/messageboard" method="post">
+			<legend>Create New Section</legend><br />
+			<input type="hidden" name="type" value="create"></input><br />
+			Name: <input type="text" name="name"></input><br />
+			Description: <input type="text" name="description"></input><br />
+			Order: <input type="text" name="order" value="0"></input><br />
+			<div><input type="submit" value="Create"></div>
+		</form>
+	{% endif %}
+{% endblock %}

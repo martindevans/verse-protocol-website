@@ -22,18 +22,13 @@ a
 
 .innerbanner
 {
-	position: absolute;
-	top: 0;
-	width: 100%;
-	height: 150px;
+	height: auto;
+	background-color: black;
 }
 
 .innerpage
 {
-	position: absolute;
-	top: 150px;
 	margin-left: 0%;
-	width: 100%;
 	background-color: white;
 }
 
@@ -54,21 +49,31 @@ a
 	border-top-width: 1px;
 }
 
+.content
+{
+	width: 973px;
+	background-color: white;
+	clear: both;
+}
+
 #bigtitle
 {
-	position: absolute;
-	top: 0.2em;
+	float: top;
+	width: 500px;
+	padding-top: 0.2em;
 	margin-left: 0.3em;
 	font-family: "Courier New";
 	font-size: 50px;
 	font-weight: bold;
 	color: white;
+	height: auto;
 }
 
 #littletitle
 {
-	position: absolute;
-	top: 1.5em;
+	float: top;
+	width: 500px;
+	padding-top: 0.2em;
 	margin-left: 0.3em;
 	font-family: "Courier New";
 	font-size: 40px;
@@ -76,52 +81,34 @@ a
 	color: white;
 }
 
-#headerright
+#topoptions
 {
-	float: right;
-	background-color: red;
-	clear: None;
-	width: 180px;
+	float: top;
+	clear: both;
 	background-color: white;
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 5px;
 }
 
-.rightoption
+.topoption
 {
+	float: left;
 	margin-bottom: 3px;
-	width: 180px;
+	width: 90px;
 	padding: 0px;
-}
-
-.rightoptiontop
-{
-	background-image:url('/messageboard/files/menutop.png?image/png');
-	float: top;
-	height: 5px;
-}
-
-.rightoptionbottom
-{
-	background-image:url('/messageboard/files/menubottom.png?image/png');
-	float: bottom;
-	height: 5px;
-}
-
-.rightoptioninner
-{
+	height: auto;
 	background-color: #898989;
 	padding-top: 0.1em;
 	padding-bottom: 0.1em;
 }
 
-.rightoptioninner:hover
+.topoption:hover
 {
 	background-color: #AAAAAA;
 }
 
-.rightoptiontext
+.topoptiontext
 {
 	padding-left: 15px;
 }

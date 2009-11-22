@@ -5,7 +5,7 @@ api_version: 1
 
 handlers:
 - url: /admin.*
-  script: adminPanel.py
+  script: baselibrary/handler.py
   login: admin
 
 - url: /images

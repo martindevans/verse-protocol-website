@@ -6,6 +6,7 @@
 		<title>{% block pagetitle %}{% endblock %}</title>
 		{% if forum_use_default_style %}
 			<link rel="stylesheet" type="text/css" href="/messageboard/files/forumstyle.css?text/css" />
+			{% block style %}{% endblock %}
 		{% else %}
 			<link rel="stylesheet" type="text/css" href="{{ forum_stylepath }}" />
 		{% endif %}
@@ -17,55 +18,44 @@
 					{% block bigtitle %}Messageboard{% endblock %}
 				</div>
 				<div id="littletitle">	
-					{% block title %}{% endblock %}
-				</div>
-				<div class="column" id="headerright">
-					<div class="rightoption">
-						<div class="rightoptiontop"></div>
-						<div class="rightoptioninner">
-							<a href="/">
-								<div class="rightoptiontext">Home</div>
-							</a>
-						</div>
-						<div class="rightoptionbottom"></div>
-					</div>
-					<div class="rightoption">
-						<div class="rightoptiontop"></div>
-						<div class="rightoptioninner">
-							<a href="/profile">
-								<div class="rightoptiontext">Profile</div>
-							</a>
-						</div>
-						<div class="rightoptionbottom"></div>
-					</div>
-					<div class="rightoption">
-						<div class="rightoptiontop"></div>
-						<div class="rightoptioninner">
-							<a href="/messageboard/search">
-								<div class="rightoptiontext">Search</div>
-							</a>
-						</div>
-						<div class="rightoptionbottom"></div>
-					</div>
-					<div class="rightoption">
-						<div class="rightoptiontop"></div>
-						<div class="rightoptioninner">
-							<a href="{{ accounthref }}">
-								<div class="rightoptiontext">{{ accountstring }}</div>
-							</a>
-						</div>
-						<div class="rightoptionbottom"></div>
-					</div>
+					{% block title %}Base Page{% endblock %}
 				</div>
 			</div>
 			<div class="innerpage">
-				<div>
+				<div class="row" id="topoptions">
+					<div class="topoption">
+						<a href="/">
+							<div class="topoptiontext">Home</div>
+						</a>
+					</div>
+					<div class="topoption">
+						<a href="/messageboard">
+							<div class="topoptiontext">Forum</div>
+						</a>
+					</div>
+					<div class="topoption">
+						<a href="/profile">
+							<div class="topoptiontext">Profile</div>
+						</a>
+					</div>
+					<div class="topoption">
+						<a href="/messageboard/search">
+							<div class="topoptiontext">Search</div>
+						</a>
+					</div>
+					<div class="topoption">
+						<a href="{{ accounthref }}">
+							<div class="topoptiontext">{{ accountstring }}</div>
+						</a>
+					</div>
+				</div>
+				<div class="content">
 					{% block content %}{% endblock %}
 				</div>
 				<div class="footer">
 					Page built and maintained by <a href="http://martindevans.appspot.com">Martin Evans</a> <a href="mailto:martindevans@gmail.com">(Email me)</a>
 					<br />
-					<a href="/admin">Administrate Website</a>
+					<a href="/messageboard/admin">Administrate Messageboard</a>
 				</div>
 			</div>
 		</div>
