@@ -32,6 +32,8 @@ class Thread(db.Model):
     title = db.StringProperty()
     readgroups = db.ListProperty(db.Key)
     writegroups = db.ListProperty(db.Key)
+    datecreated = db.DateTimeProperty(auto_now_add=True)
+    dateupdated = db.DateTimeProperty(auto_now=True)
 
     def MayRead(self, profile):
         groups = groups.UserGroup.get(self.readgroups)
@@ -53,7 +55,8 @@ class Thread(db.Model):
 class Post(search.Searchable, db.Model):
     ParentThread = db.ReferenceProperty(Thread)
     user = db.UserProperty(auto_current_user_add=True)
-    date = db.DateTimeProperty(auto_now_add=True)
+    datecreated = db.DateTimeProperty(auto_now_add=True)
+    dateupdated = db.DateTimeProperty(auto_now=True)
     content = db.TextProperty()
     position = db.IntegerProperty()
     groups = db.ListProperty(db.Key)

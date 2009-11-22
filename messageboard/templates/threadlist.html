@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
-{% block style %}<link rel="stylesheet" type="text/css" href="/messageboard/files/sectionliststyle.css?text/css" />{% endblock %}
+{% block style %}<link rel="stylesheet" type="text/css" href="/messageboard/files/threadliststyle.css?text/css" />{% endblock %}
 
 {% block pagetitle %}{{ appname }}{% endblock %}
 
 {% block title %}{{ section.title }}{% endblock %}
 
 {% block content %}
-	{{ section.title }}
+	{% for t in threads %}
+		{{ t.title }}
+	{% endfor %}
 {% endblock %}

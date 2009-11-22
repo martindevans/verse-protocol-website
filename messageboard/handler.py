@@ -18,6 +18,42 @@ from google.appengine.ext import db
 from google.appengine.api import memcache
 from google.appengine.api import users
 
+allowed_style_files = [
+  "forumstyle.css",
+  "menubottom.png",
+  "menutop.png",
+  "sectionliststyle.css",
+  "threadliststyle.css",
+  ]
+
+class File(webapp.RequestHandler):
+  def get(self):
+    filename = self.request.path[20:len(self.request.path)]
+    if (filename in allowed_style_files):
+      path = os.path.dirname(__file__) + "/files/" + filename
+      stream = open(path, "rb")
+      self.response.headers["Content-Type"] = self.request.query_string
+      self.response.out.write(stream.read())
+      stream.close()
+    else:
+      self.error(404)
+      self.response.out.write("File : " + filename + " not found")
+
+class Search(webapp.RequestHandler):
+  def get(self):
+    phrase = self.request.get("searchbox")
+    results = models.Post.search(phrase)
+    
+    template_values = {
+      "pagetitle" : "Search",
+      "searchphrase" : phrase,
+      "results" : results,
+      "resultcount" : results.count(1000),
+        }
+    
+    path = os.path.join(os.path.dirname(__file__), "templates/search.html")
+    self.response.out.write(RenderBaseExtender(path, template_values))
+
 class SectionList(webapp.RequestHandler):
   def get(self):
     template_values = {
@@ -69,46 +105,18 @@ class ThreadList(webapp.RequestHandler):
     section = db.get(db.Key(self.request.get("sectionkey")))
 
     template_values = {
-      "section" : section
+      "section" : section,
+      "threads" : models.Thread.all().filter("ParentSection = ", section).order("-dateupdated"),
         }
     path = os.path.join(os.path.dirname(__file__), 'templates/' + "threadlist.html")
     self.response.out.write(RenderBaseExtender(path, template_values))
 
-
-allowed_style_files = [
-  "forumstyle.css",
-  "menubottom.png",
-  "menutop.png",
-  "sectionliststyle.css"
-  ]
-
-class File(webapp.RequestHandler):
+class CreateThread(webapp.RequestHandler):
   def get(self):
-    filename = self.request.path[20:len(self.request.path)]
-    if (filename in allowed_style_files):
-      path = os.path.dirname(__file__) + "/files/" + filename
-      stream = open(path, "rb")
-      self.response.headers["Content-Type"] = self.request.query_string
-      self.response.out.write(stream.read())
-      stream.close()
-    else:
-      self.error(404)
-      self.response.out.write("File : " + filename + " not found")
+    self.response.out.write("Create thread form")
 
-class Search(webapp.RequestHandler):
-  def get(self):
-    phrase = self.request.get("searchbox")
-    results = models.Post.search(phrase)
-    
-    template_values = {
-      "pagetitle" : "Search",
-      "searchphrase" : phrase,
-      "results" : results,
-      "resultcount" : results.count(1000),
-        }
-    
-    path = os.path.join(os.path.dirname(__file__), "templates/search.html")
-    self.response.out.write(RenderBaseExtender(path, template_values))
+  def post(self):
+    self.response.out.write("Create thread post method")
 
 def RenderBaseExtender(path, template_values):
   user = users.get_current_user()
@@ -126,6 +134,7 @@ application = webapp.WSGIApplication(
                                      [('/messageboard/files.*', File),
                                       ('/messageboard/search.*', Search),
                                       ('/messageboard/threadlist.*', ThreadList),
+                                      ('/messageboard/createthread.*', CreateThread),
                                       ('/messageboard/admin.*', admin.AdminRoot),
                                        ('/.*', SectionList)],
                                      debug=True)
