@@ -6,6 +6,7 @@ sys.path.append("./customisation")
 from customisation import config
 
 from messageboard import models
+from messageboard.models import Thread
 
 import cgi
 import os
@@ -107,7 +108,7 @@ class ThreadList(webapp.RequestHandler):
 
     template_values = {
       "section" : section,
-      "threads" : models.Thread.all().order("-dateupdated").filter("parentSection = ", section),
+      "count" : section.thread_set.count(),
         }
     path = os.path.join(os.path.dirname(__file__), 'templates/' + "threadlist.html")
     self.response.out.write(RenderBaseExtender(path, template_values))

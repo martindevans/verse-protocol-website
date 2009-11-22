@@ -8,7 +8,11 @@
 
 {% block content %}
 	<a href="/messageboard/create?&type=thread&parentkey={{ section.key }}">New Topic</a><br />
-	{% for t in threads %}
-		{{ t.title }}<br />
+	{% for t in section.thread_set %}
+		<div class="thread">
+			<div class="threadtitle">{{ t.title }}</div>
+			<div class="threaddate">Updated {{ t.dateupdated|date:"D M d, Y P" }}</div>
+			{{ count }} repl{{ count|pluralize:"y,ies" }}
+		</div>
 	{% endfor %}
 {% endblock %}
