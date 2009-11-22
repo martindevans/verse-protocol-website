@@ -28,7 +28,7 @@ class section(db.Model):
         return len(groups) != 0
 
 class Thread(db.Model):
-    ParentSection = db.ReferenceProperty(section)
+    parentSection = db.ReferenceProperty(section)
     title = db.StringProperty()
     readgroups = db.ListProperty(db.Key)
     writegroups = db.ListProperty(db.Key)
@@ -53,11 +53,12 @@ class Thread(db.Model):
         return counter.increment("ForumThreadPositionCounter" + self.title)
 
 class Post(search.Searchable, db.Model):
-    ParentThread = db.ReferenceProperty(Thread)
+    parentThread = db.ReferenceProperty(Thread)
     user = db.UserProperty(auto_current_user_add=True)
     datecreated = db.DateTimeProperty(auto_now_add=True)
     dateupdated = db.DateTimeProperty(auto_now=True)
     content = db.TextProperty()
+    title = db.StringProperty()
     position = db.IntegerProperty()
     groups = db.ListProperty(db.Key)
     INDEX_ONLY = ['content']  

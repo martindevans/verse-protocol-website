@@ -7,7 +7,8 @@
 {% block title %}{{ section.title }}{% endblock %}
 
 {% block content %}
+	<a href="/messageboard/create?&type=thread&parentkey={{ section.key }}">New Topic</a><br />
 	{% for t in threads %}
-		{{ t.title }}
+		{{ t.title }}<br />
 	{% endfor %}
 {% endblock %}

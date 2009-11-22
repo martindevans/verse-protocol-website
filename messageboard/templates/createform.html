@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block style %}<link rel="stylesheet" type="text/css" href="/messageboard/files/createstyle.css?text/css" />{% endblock %}
+
+{% block pagetitle %}{{ appname }}{% endblock %}
+
+{% block title %}New {{ type }}{% endblock %}
+
+{% block content %}
+	<form action="/messageboard/create?&type={{ type }}&parentkey={{ parentkey }}" method="post">
+		Title: <input type="text" name="title" value="{{ defaulttitle }}"></input><br />
+		Content: <input type="text" name="content" value="{{ defaultcontent }}"></input><br />
+		<div><input type="submit" value="Submit"></div>
+	</form>
+{% endblock %}

@@ -24,6 +24,7 @@ allowed_style_files = [
   "menutop.png",
   "sectionliststyle.css",
   "threadliststyle.css",
+  "createthreadstyle.css",
   ]
 
 class File(webapp.RequestHandler):
@@ -106,17 +107,58 @@ class ThreadList(webapp.RequestHandler):
 
     template_values = {
       "section" : section,
-      "threads" : models.Thread.all().filter("ParentSection = ", section).order("-dateupdated"),
+      "threads" : models.Thread.all().order("-dateupdated").filter("parentSection = ", section),
         }
     path = os.path.join(os.path.dirname(__file__), 'templates/' + "threadlist.html")
     self.response.out.write(RenderBaseExtender(path, template_values))
 
-class CreateThread(webapp.RequestHandler):
+class Create(webapp.RequestHandler):
+  def paramGet(self, defaultcontent, defaulttitle, key, reqType):
+    template_values = {
+      "parentkey" : key,
+      "type" : reqType,
+      "defaultcontent" : defaultcontent,
+      "defaulttitle" : defaulttitle,
+        }
+    
+    path = os.path.join(os.path.dirname(__file__), "templates/createform.html")
+    self.response.out.write(RenderBaseExtender(path, template_values))
+  
   def get(self):
-    self.response.out.write("Create thread form")
+    parentKey = self.request.get("parentkey")
+    reqType = self.request.get("type")
+    
+    self.paramGet("", "", parentKey, reqType)
 
   def post(self):
-    self.response.out.write("Create thread post method")
+    parentKey = self.request.get("parentkey")
+    reqType = self.request.get("type")
+    content = self.request.get("content")
+    title = self.request.get("title")
+
+    if (reqType == "thread" and title == ""):
+      self.paramGet(content, title, parentKey, reqType)
+      return
+
+    #get a thread instance
+    thread = None
+    if (reqType == "thread"):
+      thread = models.Thread()
+      section = db.get(db.Key(parentKey))
+      thread.parentSection = section
+      thread.title = title
+      thread.put()
+    else:
+      thread = models.Thread.get(db.Key(parentKey))
+
+    #create a post instance
+    post = models.Post()
+    post.parentThread = thread
+    post.content = content
+    post.title = title
+    post.put()
+
+    self.redirect("/messageboard/threadlist?&sectionkey=" + str(parentKey))
 
 def RenderBaseExtender(path, template_values):
   user = users.get_current_user()
@@ -134,7 +176,7 @@ application = webapp.WSGIApplication(
                                      [('/messageboard/files.*', File),
                                       ('/messageboard/search.*', Search),
                                       ('/messageboard/threadlist.*', ThreadList),
-                                      ('/messageboard/createthread.*', CreateThread),
+                                      ('/messageboard/create.*', Create),
                                       ('/messageboard/admin.*', admin.AdminRoot),
                                        ('/.*', SectionList)],
                                      debug=True)

@@ -15,3 +15,9 @@ indexes:
   - name: ParentSection
   - name: dateupdated
     direction: desc
+
+- kind: Thread
+  properties:
+  - name: parentSection
+  - name: dateupdated
+    direction: desc
