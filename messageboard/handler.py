@@ -26,6 +26,7 @@ allowed_style_files = [
   "sectionliststyle.css",
   "threadliststyle.css",
   "createthreadstyle.css",
+  "postliststyle.css",
   ]
 
 class File(webapp.RequestHandler):
@@ -161,6 +162,16 @@ class Create(webapp.RequestHandler):
 
     self.redirect("/messageboard/threadlist?&sectionkey=" + str(parentKey))
 
+class PostList(webapp.RequestHandler):
+  def get(self):
+    thread = db.get(db.Key(self.request.get("threadkey")))
+
+    template_values = {
+      "thread" : thread,
+        }
+    path = os.path.join(os.path.dirname(__file__), "templates/postlist.html")
+    self.response.out.write(RenderBaseExtender(path, template_values))
+
 def RenderBaseExtender(path, template_values):
   user = users.get_current_user()
   if user:
@@ -176,8 +187,9 @@ def RenderBaseExtender(path, template_values):
 application = webapp.WSGIApplication(
                                      [('/messageboard/files.*', File),
                                       ('/messageboard/search.*', Search),
-                                      ('/messageboard/threadlist.*', ThreadList),
+                                      ('/messageboard/section.*', ThreadList),
                                       ('/messageboard/create.*', Create),
+                                      ('/messageboard/thread.*', PostList),
                                       ('/messageboard/admin.*', admin.AdminRoot),
                                        ('/.*', SectionList)],
                                      debug=True)

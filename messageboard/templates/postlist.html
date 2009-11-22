@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block style %}<link rel="stylesheet" type="text/css" href="/messageboard/files/postliststyle.css?text/css" />{% endblock %}
+
+{% block pagetitle %}{{ appname }}{% endblock %}
+
+{% block title %}{{ thread.title }}{% endblock %}
+
+{% block content %}
+	{% for p in thread.post_set %}
+		{{ p.content }}
+	{% endfor %}
+{% endblock %}

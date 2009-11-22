@@ -8,7 +8,7 @@
 
 {% block content %}
 	{% for s in sections %}
-		<a href="/messageboard/threadlist?&sectionkey={{ s.key }}">
+		<a href="/messageboard/section?&sectionkey={{ s.key }}">
 			<div class="sectionblock">
 				<div class="sectiontitle">{{ s.title }}</div>
 				<div class="sectiondescription">{{ s.description }}</div>
