@@ -158,6 +158,7 @@ class Create(webapp.RequestHandler):
     post.parentThread = thread
     post.content = content
     post.title = title
+    post.position = thread.GetNextPosition()
     post.put()
     post.enqueue_indexing(url='/tasks/searchindexing')  
 

@@ -60,8 +60,15 @@ class Post(search.Searchable, db.Model):
     content = db.TextProperty()
     title = db.StringProperty()
     position = db.IntegerProperty()
+    writes = db.IntegerProperty()
     groups = db.ListProperty(db.Key)
     INDEX_ONLY = ['content']  
+
+    def put(self):
+        if (self.writes is None):
+            self.writes = 0
+        self.writes = self.writes + 1
+        db.put(self)
 
     def MayRead(self, profile):
         return ParentThread.MayRead(profile)
