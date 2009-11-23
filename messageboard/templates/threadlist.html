@@ -12,7 +12,7 @@
 		<div class="thread">
 			<div class="threadtitle"><a href="/messageboard/thread?&threadkey={{ t.key }}">{{ t.title }}</a></div>
 			<div class="threaddate">Updated {{ t.dateupdated|date:"D M d, Y P" }}</div>
-			{{ count }} repl{{ count|pluralize:"y,ies" }}
+			<div class="threadcount">{{ t.post_set.count }}</div>
 		</div>
 	{% endfor %}
 {% endblock %}

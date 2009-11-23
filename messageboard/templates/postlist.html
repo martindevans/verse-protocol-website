@@ -7,7 +7,10 @@
 {% block title %}{{ thread.title }}{% endblock %}
 
 {% block content %}
+	<a href="/messageboard/create?&type=post&parentkey={{ thread.key }}">Reply</a><br />
 	{% for p in thread.post_set %}
-		{{ p.content }}
+		<div class="post">
+			{{ p.content }}
+		</div>
 	{% endfor %}
 {% endblock %}

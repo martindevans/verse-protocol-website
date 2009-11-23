@@ -107,9 +107,9 @@ class ThreadList(webapp.RequestHandler):
   def get(self):
     section = db.get(db.Key(self.request.get("sectionkey")))
 
+    query = section.thread_set
     template_values = {
       "section" : section,
-      "count" : section.thread_set.count(),
         }
     path = os.path.join(os.path.dirname(__file__), 'templates/' + "threadlist.html")
     self.response.out.write(RenderBaseExtender(path, template_values))
@@ -159,8 +159,9 @@ class Create(webapp.RequestHandler):
     post.content = content
     post.title = title
     post.put()
+    post.enqueue_indexing(url='/tasks/searchindexing')  
 
-    self.redirect("/messageboard/threadlist?&sectionkey=" + str(parentKey))
+    self.redirect("/messageboard/thread?&threadkey=" + str(thread.key()))
 
 class PostList(webapp.RequestHandler):
   def get(self):
