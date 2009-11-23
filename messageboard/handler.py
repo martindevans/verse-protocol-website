@@ -48,7 +48,6 @@ class Search(webapp.RequestHandler):
     results = models.Post.search(phrase)
     
     template_values = {
-      "pagetitle" : "Search",
       "searchphrase" : phrase,
       "results" : results,
       "resultcount" : results.count(1000),
@@ -60,7 +59,8 @@ class Search(webapp.RequestHandler):
 class SectionList(webapp.RequestHandler):
   def get(self):
     template_values = {
-      "sections" : models.section.all().order("position")
+      "sections" : models.section.all().order("position"),
+      "path" : GetRootPath(),
         }
     path = os.path.join(os.path.dirname(__file__), 'templates/' + "sectionlist.html")
     self.response.out.write(RenderBaseExtender(path, template_values))
@@ -110,17 +110,19 @@ class ThreadList(webapp.RequestHandler):
     query = section.thread_set
     template_values = {
       "section" : section,
+      "path" : GetRootPath() + section.GetPath()
         }
     path = os.path.join(os.path.dirname(__file__), 'templates/' + "threadlist.html")
     self.response.out.write(RenderBaseExtender(path, template_values))
 
 class Create(webapp.RequestHandler):
-  def paramGet(self, defaultcontent, defaulttitle, key, reqType):
+  def paramGet(self, defaultcontent, defaulttitle, key, reqType, forumpath):    
     template_values = {
       "parentkey" : key,
       "type" : reqType,
       "defaultcontent" : defaultcontent,
       "defaulttitle" : defaulttitle,
+      "path" : forumpath,
         }
     
     path = os.path.join(os.path.dirname(__file__), "templates/createform.html")
@@ -130,7 +132,7 @@ class Create(webapp.RequestHandler):
     parentKey = self.request.get("parentkey")
     reqType = self.request.get("type")
     
-    self.paramGet("", "", parentKey, reqType)
+    self.paramGet("", "", parentKey, reqType, db.get(parentKey).GetCompletePath())
 
   def post(self):
     parentKey = self.request.get("parentkey")
@@ -170,6 +172,7 @@ class PostList(webapp.RequestHandler):
 
     template_values = {
       "thread" : thread,
+      "path" : thread.GetCompletePath(),
         }
     path = os.path.join(os.path.dirname(__file__), "templates/postlist.html")
     self.response.out.write(RenderBaseExtender(path, template_values))
@@ -185,6 +188,9 @@ def RenderBaseExtender(path, template_values):
   template_values["users"] = google.appengine.api.users
   template_values.update(config.values)
   return template.render(path, template_values)
+
+def GetRootPath():
+  return '<a href="/messageboard">' + config.values["appname"] + '</a> &gt; '
 
 application = webapp.WSGIApplication(
                                      [('/messageboard/files.*', File),

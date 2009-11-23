@@ -32,6 +32,27 @@ a
 	background-color: white;
 }
 
+.path
+{
+	font-family: "Lucida Grande", Arial, sans-serif;
+	font-size: 10px;
+	clear: both;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-top-color: black;
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+.content
+{
+	width: 973px;
+	background-color: white;
+	clear: both;
+}
+
 .footer
 {
 	font-family: "Lucida Grande", Arial, sans-serif;
@@ -47,13 +68,6 @@ a
 	border-top-color: black;
 	border-top-style: solid;
 	border-top-width: 1px;
-}
-
-.content
-{
-	width: 973px;
-	background-color: white;
-	clear: both;
 }
 
 #bigtitle

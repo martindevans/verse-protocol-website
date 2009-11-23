@@ -1,6 +1,10 @@
 from google.appengine.ext import db
 from google.appengine.api import users
 
+import sys
+sys.path.append("./customisation")
+from customisation import config
+
 from usersystem import groups
 from usersystem import profiles
 from baselibrary import counter
@@ -27,6 +31,12 @@ class section(db.Model):
                 return True
         return len(groups) != 0
 
+    def GetPath(self):
+        return '<a href="/messageboard/section?&sectionkey=' + str(self.key()) + '">' + self.title + '</a> &gt; '
+
+    def GetCompletePath(self):
+        return '<a href="/messageboard">' + config.values["appname"] + '</a> &gt; ' + self.GetPath()
+
 class Thread(db.Model):
     parentSection = db.ReferenceProperty(section)
     title = db.StringProperty()
@@ -48,6 +58,12 @@ class Thread(db.Model):
             if (profile.IsMemberOf(g)):
                 return ParentSection.MayWrite(profile)
         return len(groups) != 0
+
+    def GetPath(self):
+        return '<a href="/messageboard/thread?&threadkey=' + str(self.key()) + '">' + self.title + '</a> &gt; '
+
+    def GetCompletePath(self):
+        return self.parentSection.GetCompletePath() + self.GetPath()
 
     def GetNextPosition(self):
         return counter.increment("ForumThreadPositionCounter" + self.title)
