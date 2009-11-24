@@ -44,6 +44,7 @@ class Thread(db.Model):
     writegroups = db.ListProperty(db.Key)
     datecreated = db.DateTimeProperty(auto_now_add=True)
     dateupdated = db.DateTimeProperty(auto_now=True)
+    postcount = db.IntegerProperty()
 
     def MayRead(self, profile):
         groups = groups.UserGroup.get(self.readgroups)
@@ -65,8 +66,38 @@ class Thread(db.Model):
     def GetCompletePath(self):
         return self.parentSection.GetCompletePath() + self.GetPath()
 
+    def GetCompletePathWithPages(self, pageIndex, pageSize):
+        return self.GetCompletePath() + self.GetPagePath(pageIndex, pageSize)
+
+    def GetPagePath(self, pageIndex, pageSize):
+        def gen(n, pageIndex):
+            if (n == pageIndex):
+                return "current"
+            else:
+                return '<a href="/messageboard/thread?&threadkey=' + str(self.key()) + '&pageindex=' + str(n) + '">' + str(n) + '</a>'
+        return ','.join(
+            [gen(n, pageIndex) for n in range(1, self.GetPageCount(pageSize) + 1)])
+
     def GetNextPosition(self):
-        return counter.increment("ForumThreadPositionCounter" + self.title)
+        def txn():
+            if (self.postcount is None):
+                self.postcount = 0
+            self.postcount = self.postcount + 1
+            self.put()
+            return self.postcount - 1
+        return db.run_in_transaction(txn)
+
+    def GetPage(self, pageIndex, pageSize):
+        return None
+
+    def GetPageCount(self, pageSize):
+        fullPages = int(self.GetCount() / pageSize)
+        if (postCount == fullPages * pageSize):
+            return fullPages
+        return fullPages + 1 #partial page
+
+    def GetCount(self):
+        return int(self.postcount - 1)
 
 class Post(search.Searchable, db.Model):
     parentThread = db.ReferenceProperty(Thread)

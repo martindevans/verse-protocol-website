@@ -168,11 +168,38 @@ class Create(webapp.RequestHandler):
 
 class PostList(webapp.RequestHandler):
   def get(self):
+    pagesize = 10
+    
     thread = db.get(db.Key(self.request.get("threadkey")))
+    pageCount = thread.GetPageCount(pagesize)
+
+    pageIndex = self.request.get("pageindex")
+    if pageIndex == '':
+      pageIndex = pageCount
+    else:
+      pageIndex = int(pageIndex)
+    if (pageIndex > pageCount):
+      self.redirect("/messageboard/thread?&threadkey=" + str(thread.key()))
+
+    lowerBound = (pageIndex - 1) * pagesize
+    upperBound = lowerBound + pagesize
+    nextpagelink = ""
+    if (pageIndex + 1 > pageCount):
+      nextpagelink = ""
+    else:
+      nextpagelink = '<a href="/messageboard/thread?&threadkey=' + str(thread.key()) + '&pageindex=' + str(pageIndex + 1) + '">next</a>'
+
+    firstPath = thread.GetCompletePath()
+    lastPath = thread.GetPagePath(pageIndex, pagesize)
 
     template_values = {
       "thread" : thread,
-      "path" : thread.GetCompletePath(),
+      "path" : firstPath + lastPath,
+      "partialPath" : lastPath,
+      "pageIndex" : pageIndex,
+      "pagecount" : pageCount,
+      "nextpagelink" : nextpagelink,
+      "visiblePosts" : thread.post_set.filter("position >", lowerBound).filter("position <=", upperBound)
         }
     path = os.path.join(os.path.dirname(__file__), "templates/postlist.html")
     self.response.out.write(RenderBaseExtender(path, template_values))

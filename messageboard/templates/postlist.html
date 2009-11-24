@@ -8,7 +8,10 @@
 
 {% block content %}
 	<a href="/messageboard/create?&type=post&parentkey={{ thread.key }}">Reply</a><br />
-	{% for p in thread.post_set %}
+	<div class="pagepath">
+		{{ partialPath }} {{ nextpagelink }}
+	</div>
+	{% for p in visiblePosts %}
 		<div class="post">
 			<a name="{{ p.key }}">
 				<div class="postcontent">
@@ -20,4 +23,8 @@
 			</a>
 		</div>
 	{% endfor %}
+	<div class="pagepath">
+		{{ partialPath }} {{ nextpagelink }}
+	</div>
+	<a href="/messageboard/create?&type=post&parentkey={{ thread.key }}">Reply</a><br />
 {% endblock %}
