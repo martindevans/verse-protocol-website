@@ -110,6 +110,7 @@ class ThreadList(webapp.RequestHandler):
     query = section.thread_set
     template_values = {
       "section" : section,
+      "visibleThreads" : section.thread_set.order("-dateupdated"),
       "path" : GetRootPath() + section.GetPath()
         }
     path = os.path.join(os.path.dirname(__file__), 'templates/' + "threadlist.html")
@@ -168,14 +169,14 @@ class Create(webapp.RequestHandler):
 
 class PostList(webapp.RequestHandler):
   def get(self):
-    pagesize = 10
+    pagesize = 3
     
     thread = db.get(db.Key(self.request.get("threadkey")))
     pageCount = thread.GetPageCount(pagesize)
 
     pageIndex = self.request.get("pageindex")
     if pageIndex == '':
-      pageIndex = pageCount
+      pageIndex = pageCount - 1
     else:
       pageIndex = int(pageIndex)
     if (pageIndex > pageCount):
@@ -183,11 +184,18 @@ class PostList(webapp.RequestHandler):
 
     lowerBound = (pageIndex - 1) * pagesize
     upperBound = lowerBound + pagesize
+    
     nextpagelink = ""
-    if (pageIndex + 1 > pageCount):
-      nextpagelink = ""
-    else:
+    if (pageIndex + 1 <= pageCount):
       nextpagelink = '<a href="/messageboard/thread?&threadkey=' + str(thread.key()) + '&pageindex=' + str(pageIndex + 1) + '">next</a>'
+    else:
+      nextpagelink = "next"
+
+    previouspagelink = ""
+    if (pageIndex - 1 > 0):
+      previouspagelink = '<a href="/messageboard/thread?&threadkey=' + str(thread.key()) + '&pageindex=' + str(pageIndex - 1) + '">previous</a>'
+    else:
+      previouspagelink = "previous"
 
     firstPath = thread.GetCompletePath()
     lastPath = thread.GetPagePath(pageIndex, pagesize)
@@ -199,7 +207,8 @@ class PostList(webapp.RequestHandler):
       "pageIndex" : pageIndex,
       "pagecount" : pageCount,
       "nextpagelink" : nextpagelink,
-      "visiblePosts" : thread.post_set.filter("position >", lowerBound).filter("position <=", upperBound)
+      "previouspagelink" : previouspagelink,
+      "visiblePosts" : thread.post_set.filter("position >=", lowerBound).filter("position <", upperBound)
         }
     path = os.path.join(os.path.dirname(__file__), "templates/postlist.html")
     self.response.out.write(RenderBaseExtender(path, template_values))

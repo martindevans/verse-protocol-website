@@ -72,7 +72,7 @@ class Thread(db.Model):
     def GetPagePath(self, pageIndex, pageSize):
         def gen(n, pageIndex):
             if (n == pageIndex):
-                return "current"
+                return str(n)
             else:
                 return '<a href="/messageboard/thread?&threadkey=' + str(self.key()) + '&pageindex=' + str(n) + '">' + str(n) + '</a>'
         return ','.join(
@@ -91,7 +91,8 @@ class Thread(db.Model):
         return None
 
     def GetPageCount(self, pageSize):
-        fullPages = int(self.GetCount() / pageSize)
+        postCount = self.GetCount()
+        fullPages = int(postCount / pageSize)
         if (postCount == fullPages * pageSize):
             return fullPages
         return fullPages + 1 #partial page

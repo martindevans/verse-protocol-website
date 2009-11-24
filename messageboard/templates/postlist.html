@@ -7,9 +7,10 @@
 {% block title %}{{ thread.title }}{% endblock %}
 
 {% block content %}
+	{{ pageIndex }}<br />
 	<a href="/messageboard/create?&type=post&parentkey={{ thread.key }}">Reply</a><br />
 	<div class="pagepath">
-		{{ partialPath }} {{ nextpagelink }}
+		{{ previouspagelink }} {{ partialPath }} {{ nextpagelink }}
 	</div>
 	{% for p in visiblePosts %}
 		<div class="post">
@@ -24,7 +25,7 @@
 		</div>
 	{% endfor %}
 	<div class="pagepath">
-		{{ partialPath }} {{ nextpagelink }}
+		{{ previouspagelink }} {{ partialPath }} {{ nextpagelink }}
 	</div>
 	<a href="/messageboard/create?&type=post&parentkey={{ thread.key }}">Reply</a><br />
 {% endblock %}

@@ -8,7 +8,7 @@
 
 {% block content %}
 	<a href="/messageboard/create?&type=thread&parentkey={{ section.key }}">New Topic</a><br />
-	{% for t in section.thread_set %}
+	{% for t in visibleThreads %}
 		<div class="thread">
 			<div class="threadtitle"><a href="/messageboard/thread?&threadkey={{ t.key }}">{{ t.title }}</a></div>
 			<div class="threaddate">Updated {{ t.dateupdated|date:"D M d, Y P" }}</div>
