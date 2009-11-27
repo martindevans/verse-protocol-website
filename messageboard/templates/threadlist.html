@@ -8,6 +8,9 @@
 
 {% block content %}
 	<a href="/messageboard/create?&type=thread&parentkey={{ section.key }}">New Topic</a><br />
+	<div class="pagepath">
+		<a href="">Latest</a> {{ previouspagelink }} {{ partialPath }} {{ nextpagelink }}
+	</div>
 	{% for t in visibleThreads %}
 		<div class="thread">
 			<div class="threadtitle"><a href="/messageboard/thread?&threadkey={{ t.key }}">{{ t.title }}</a></div>

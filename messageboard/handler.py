@@ -105,14 +105,41 @@ class SectionList(webapp.RequestHandler):
 
 class ThreadList(webapp.RequestHandler):
   def get(self):
+    pagesize = 2
+    
     section = db.get(db.Key(self.request.get("sectionkey")))
+    pageIndex = self.request.get("pageindex")
+    if pageIndex == '':
+      pageIndex = 1
+    else:
+      pageIndex = int(pageIndex) - 1
+    if (pageIndex < 0):
+      self.redirect("/messageboard/section?&sectionkey=" + str(section.key()) + "&pageindex=1")
+
+    firstIndex = pageIndex * pagesize
+    lastIndex = firstIndex + pagesize
+    query = section.thread_set.order("-dateupdated").fetch(lastIndex + 1)
+    visible = []
+    nextpagelink = "next"
+    for index, item in enumerate(query):
+      if (index >= firstIndex):
+        if (index < lastIndex):
+          visible.append(item)
+        else:
+          nextpagelink = '<a href="/messageboard/section?&sectionkey=' + str(section.key()) + '&pageindex=' + str(pageIndex + 2) + '">older</a>'
 
     query = section.thread_set
     template_values = {
       "section" : section,
-      "visibleThreads" : section.thread_set.order("-dateupdated"),
-      "path" : GetRootPath() + section.GetPath()
+      "visibleThreads" : visible,
+      "path" : GetRootPath() + section.GetPath(),
+      "nextpagelink" : nextpagelink,
         }
+    if (pageIndex >= 1):
+      template_values["previouspagelink"] = '<a href="/messageboard/section?&sectionkey=' + str(section.key()) + '&pageindex=' + str(pageIndex) + '">newer</a>'
+    else:
+      template_values["previouspagelink"] = "previous"
+    
     path = os.path.join(os.path.dirname(__file__), 'templates/' + "threadlist.html")
     self.response.out.write(RenderBaseExtender(path, template_values))
 

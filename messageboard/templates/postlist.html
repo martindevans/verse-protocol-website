@@ -7,7 +7,6 @@
 {% block title %}{{ thread.title }}{% endblock %}
 
 {% block content %}
-	{{ pageIndex }}<br />
 	<a href="/messageboard/create?&type=post&parentkey={{ thread.key }}">Reply</a><br />
 	<div class="pagepath">
 		{{ previouspagelink }} {{ partialPath }} {{ nextpagelink }}
