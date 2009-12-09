@@ -2,6 +2,8 @@ body
 {
 	font-family: Verdana, Sans-serif, "Courier New";
 	background-color: black;
+	font-size: 0.8em;
+	line-height:200%
 }
 
 a
