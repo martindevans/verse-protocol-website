@@ -50,7 +50,6 @@ class Search(webapp.RequestHandler):
     template_values = {
       "searchphrase" : phrase,
       "results" : results,
-      "resultcount" : results.count(1000),
         }
     
     path = os.path.join(os.path.dirname(__file__), "templates/search.html")
@@ -105,12 +104,12 @@ class SectionList(webapp.RequestHandler):
 
 class ThreadList(webapp.RequestHandler):
   def get(self):
-    pagesize = 2
+    pagesize = 10
     
     section = db.get(db.Key(self.request.get("sectionkey")))
     pageIndex = self.request.get("pageindex")
     if pageIndex == '':
-      pageIndex = 1
+      pageIndex = 0
     else:
       pageIndex = int(pageIndex) - 1
     if (pageIndex < 0):
@@ -196,14 +195,14 @@ class Create(webapp.RequestHandler):
 
 class PostList(webapp.RequestHandler):
   def get(self):
-    pagesize = 3
+    pagesize = 25
     
     thread = db.get(db.Key(self.request.get("threadkey")))
     pageCount = thread.GetPageCount(pagesize)
 
     pageIndex = self.request.get("pageindex")
     if pageIndex == '':
-      pageIndex = pageCount - 1
+      pageIndex = pageCount
     else:
       pageIndex = int(pageIndex)
     if (pageIndex > pageCount):
@@ -232,6 +231,7 @@ class PostList(webapp.RequestHandler):
       "path" : firstPath + lastPath,
       "partialPath" : lastPath,
       "pageIndex" : pageIndex,
+      "lowerBound" : lowerBound,
       "pagecount" : pageCount,
       "nextpagelink" : nextpagelink,
       "previouspagelink" : previouspagelink,

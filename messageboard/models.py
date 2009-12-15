@@ -98,7 +98,7 @@ class Thread(db.Model):
         return fullPages + 1 #partial page
 
     def GetCount(self):
-        return int(self.postcount - 1)
+        return int(self.postcount)
 
 class Post(search.Searchable, db.Model):
     parentThread = db.ReferenceProperty(Thread)

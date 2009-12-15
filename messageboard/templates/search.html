@@ -12,8 +12,9 @@
 	
 	<br />
 	Search for : {{ searchphrase }}<br />
-	{{ resultcount }} result{{ resultcount|pluralize }}<br />
+	{{ results|length }} result{{ results|length|pluralize }}<br />
+	
 	{% for r in results %}
-		{{ r.content }}<br />
+		{{ r.content|slice:":100" }}...<br />
 	{% endfor %}
 {% endblock %}

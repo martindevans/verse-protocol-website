@@ -7,6 +7,11 @@
 {% block title %}{{ thread.title }}{% endblock %}
 
 {% block content %}
+	<!--
+	page index = {{ pageIndex }}
+	lower bound = {{ lowerBound }}
+	page count = {{ pagecount }}
+	!-->
 	<a href="/messageboard/create?&type=post&parentkey={{ thread.key }}">Reply</a><br />
 	<div class="pagepath">
 		{{ previouspagelink }} {{ partialPath }} {{ nextpagelink }}
@@ -15,7 +20,7 @@
 		<div class="post">
 			<a name="{{ p.key }}">
 				<div class="postcontent">
-					{{ p.content|escape }}
+					{{ p.content|escape|linebreaksbr }}
 				</div>
 				<div class="postfooter">
 					{{ p.user.nickname }} @ {{ p.datecreated|date:"D M d, Y P" }} updated {{ p.dateupdated|date:"D M d, Y P" }}, {{ p.writes }} times
