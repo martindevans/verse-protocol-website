@@ -7,12 +7,13 @@
 {% block title %}New {{ type }}{% endblock %}
 
 {% block content %}
-	<div class="submitform">
-		<form action="/messageboard/create?&type={{ type }}&parentkey={{ parentkey }}" method="post">
-			Title: <input type="text" name="title" value="{{ defaulttitle }}"></input><br />
-			<!--<input type="text" name="content" value="{{ defaultcontent }}"></input><br />!-->
-			<textarea name="content" rows="20" cols="40">{{ defaultcontent }}</textarea>
-			<div><input type="submit" value="Submit"></div>
-		</form>
-	</div>
+	<center>
+		<div class="submitform">
+			<form action="/messageboard/create?&type={{ type }}&parentkey={{ parentkey }}" method="post">
+				Title: <input type="text" name="title" value="{{ defaulttitle }}"></input><br />
+				<textarea name="content" rows="10" cols="80">{{ defaultcontent }}</textarea>
+				<div><input type="submit" value="Submit"></div>
+			</form>
+		</div>
+	</center>
 {% endblock %}

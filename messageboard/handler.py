@@ -27,6 +27,7 @@ allowed_style_files = [
   "threadliststyle.css",
   "createthreadstyle.css",
   "postliststyle.css",
+  "md5.js",
   ]
 
 class File(webapp.RequestHandler):
@@ -143,7 +144,11 @@ class ThreadList(webapp.RequestHandler):
     self.response.out.write(RenderBaseExtender(path, template_values))
 
 class Create(webapp.RequestHandler):
-  def paramGet(self, defaultcontent, defaulttitle, key, reqType, forumpath):    
+  def paramGet(self, defaultcontent, defaulttitle, key, reqType, forumpath):
+    if (users.get_current_user() is None):
+        self.redirect(users.create_login_url(self.request.url))
+        return
+    
     template_values = {
       "parentkey" : key,
       "type" : reqType,

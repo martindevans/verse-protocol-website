@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 
-{% block style %}<link rel="stylesheet" type="text/css" href="/messageboard/files/postliststyle.css?text/css" />{% endblock %}
+{% block style %}
+	<link rel="stylesheet" type="text/css" href="/messageboard/files/postliststyle.css?text/css" />
+	<script type="text/javascript" src="/messageboard/files/md5.js"></script>
+{% endblock %}
 
-{% block pagetitle %}{{ appname }}{% endblock %}
+{% block pagetitle %}{{ appname }} :: {{ thread.title }}{% endblock %}
 
 {% block title %}{{ thread.title }}{% endblock %}
 
@@ -16,18 +19,38 @@
 	<div class="pagepath">
 		{{ previouspagelink }} {{ partialPath }} {{ nextpagelink }}
 	</div>
-	{% for p in visiblePosts %}
-		<div class="post">
-			<a name="{{ p.key }}">
-				<div class="postcontent">
-					{{ p.content|escape|linebreaksbr }}
+	<div class="postlist">
+		{% for p in visiblePosts %}
+			<div class="post">
+				<a name="{{ p.key }}" />
+				<div class="postheader">
+					<a href="/messageboard/thread?&threadkey={{ thread.key }}#{{ p.key}}">{{ p.datecreated|date:"d-M-Y" }} {{ p.datecreated|date:"H:i A" }}</a><br />
+					<div class="postusername">{{ p.user.nickname }}</div>
 				</div>
-				<div class="postfooter">
-					{{ p.user.nickname }} @ {{ p.datecreated|date:"D M d, Y P" }} updated {{ p.dateupdated|date:"D M d, Y P" }}, {{ p.writes }} times
-				</div>
-			</a>
-		</div>
-	{% endfor %}
+				<table>
+					<tr>
+						<td>
+							<div class="personinfo">
+								<center>
+									<script type="text/javascript">
+										email = "{{ p.user.email|lower }}";
+										hash = hex_md5(email);
+										address = "http://www.gravatar.com/avatar/" + hash + ".jpg";
+										document.write("<a href=\"http://en.gravatar.com/\"><img src=\"" + address + "\" alt=\"avatar of {{ post.author.nickname }}?r=r\" /></a>");
+									</script>
+								</center>
+							</div>
+						</td>
+						<td>
+							<div class="postcontent">
+								{{ p.content|escape|linebreaksbr }}
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		{% endfor %}
+	</div>
 	<div class="pagepath">
 		{{ previouspagelink }} {{ partialPath }} {{ nextpagelink }}
 	</div>
