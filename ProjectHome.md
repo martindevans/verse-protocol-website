@@ -1,0 +1,1 @@
+The source code for the website located at verse-protocol.appspot.com, a website dedicated to the verse content exchange protocol
